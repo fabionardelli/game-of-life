@@ -2,6 +2,7 @@ import random
 import curses
 from collections import deque
 
+
 def new_world(h, w):
     """
     Initialize the game world creating a matrix of cells.
