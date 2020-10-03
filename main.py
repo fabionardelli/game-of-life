@@ -13,13 +13,8 @@ def new_world(screen_h, screen_w):
     w = terminal window's width
     """
 
-    # fill with 0s
-    generation = [[0 for i in range(screen_w)] for j in range(screen_h)]
-
-    # random initialization
-    for i in range(len(generation)):
-        for j in range(len(generation[i])):
-            generation[i][j] = random.randint(0, 1)
+    # initialize with random values in {0, 1}
+    generation = [[random.randint(0, 1) for _ in range(screen_w)] for _ in range(screen_h)]
 
     return generation
 
@@ -96,9 +91,6 @@ def main(stdscr):
     h, w = stdscr.getmaxyx()
     game_field = new_world(h, w)
 
-    # curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_WHITE)
-    # stdscr.attron(curses.color_pair(1))
-
     while True:
         stdscr.clear()
         game_field = next_generation(game_field)
@@ -123,8 +115,6 @@ def main(stdscr):
         elif key == curses.KEY_RESIZE:
             h, w = stdscr.getmaxyx()
             game_field = new_world(h, w)
-
-    # stdscr.attroff(curses.color_pair(1))
 
 
 curses.wrapper(main)
