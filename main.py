@@ -96,10 +96,11 @@ def main(stdscr):
     # curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_WHITE)
     # stdscr.attron(curses.color_pair(1))
 
-    while 1:
+    while True:
         stdscr.clear()
         game_field = next_generation(game_field)
 
+        # print the game world
         for i in range(h):
             for j in range(w):
                 if game_field[i][j] == 1:
