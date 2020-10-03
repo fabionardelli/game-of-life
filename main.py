@@ -2,16 +2,13 @@ import random
 import curses
 from collections import deque
 
-'''
-initialize the game world creating a matrix of cells
-'''
-
-
 def new_world(h, w):
-    # create a list representing the current generation
-    # as a h*w matrix and initialize it with random
-    # values in [0, 1] which stand for the active cells
-    # generation = [random.choices(range(0, 2), k=w) for _ in range(h)]
+    """
+    Initialize the game world creating a matrix of cells.
+    Create a list representing the current generation
+    as a h*w matrix and initialize it with random
+    values in {0, 1} which stand for the dead/live cells
+    """
 
     # fill with 0s
     generation = [[0 for i in range(w)] for j in range(h)]
@@ -24,31 +21,26 @@ def new_world(h, w):
     return generation
 
 
-'''
-count the live neighbors of the cell indexed by row_idx, col_idx
-'''
-
-
 def live_neighbors_count(current_gen, row_idx, col_idx):
-    # print("")
+    """
+    count the live neighbors of the cell indexed by row_idx, col_idx
+    """
+
     count = 0
     for i in range(row_idx - 1, row_idx + 2):
         for j in range(col_idx - 1, col_idx + 2):
-            # print("a[{}][{}]={}".format(i, j, current_gen[i][j]))
             if (current_gen[i][j] == 1 and
                     (i != row_idx or j != col_idx)):
                 count += 1
-    # print(count)
     return count
 
 
-'''
-implement Convway's Game of Life. Takes a list of cells in input
-which represents a generation of cells and computes the next one.
-'''
-
-
 def next_generation(current_gen):
+    """
+    implement Convway's Game of Life. Takes a list of cells in input
+    which represents a generation of cells and computes the next one.
+    """
+
     # cells to be live in the next generation
     live_queue = deque()
     # cells to be dead in the next generation
@@ -88,12 +80,12 @@ def next_generation(current_gen):
 
     return current_gen
 
-'''
-main function containing the game loop
-'''
-
 
 def main(stdscr):
+    """
+    main function containing the game loop
+    """
+
     curses.curs_set(0)
     stdscr.nodelay(1)
     stdscr.timeout(150)
