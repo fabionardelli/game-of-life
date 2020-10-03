@@ -12,12 +12,10 @@ def new_world(h, w):
     # fill with 0s
     generation = [[0 for i in range(w)] for j in range(h)]
 
-    # create an oscillator
-    generation[1][2] = 1
-    generation[2][3] = 1
-    generation[3][1] = 1
-    generation[3][2] = 1
-    generation[3][3] = 1
+    # random initialization
+    for i in range(len(generation)):
+        for j in range(len(generation[i])):
+            generation[i][j] = random.randint(0, 2)
 
     return generation
 
@@ -113,6 +111,11 @@ def main(stdscr):
         key = stdscr.getch()
         if key == curses.KEY_ENTER or key in [10, 13]:
             break
+        # if window is resized, re-initialize the game field
+        # with the new dimensions
+        elif key == curses.KEY_RESIZE:
+            h, w = stdscr.getmaxyx()
+            game_field = new_world(h, w)
 
     # stdscr.attroff(curses.color_pair(1))
 
