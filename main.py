@@ -22,7 +22,7 @@ def new_world(screen_h, screen_w):
 
 def live_neighbors_count(current_gen, row_idx, col_idx):
     """
-    count the live neighbors of the cell indexed by row_idx, col_idx
+    Count the live neighbors of the cell indexed by row_idx, col_idx
     """
 
     count = 0
@@ -36,8 +36,8 @@ def live_neighbors_count(current_gen, row_idx, col_idx):
 
 def next_generation(current_gen):
     """
-    implement Convway's Game of Life. Takes a list of cells in input
-    which represents a generation of cells and computes the next one.
+    Implement Conway's Game of Life. Take a list of cells in input
+    which represents a generation of cells and compute the next one.
     """
 
     # cells to be live in the next generation
@@ -82,7 +82,7 @@ def next_generation(current_gen):
 
 def main(stdscr):
     """
-    main function containing the game loop
+    Main function containing the game loop
     """
 
     curses.curs_set(0)
