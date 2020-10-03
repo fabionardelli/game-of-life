@@ -55,10 +55,10 @@ def next_generation(current_gen):
             # check each of its neighbors
             if (0 < i < len(current_gen) - 1 and
                     0 < j < len(current_gen[i]) - 1):
-                # print("a[{}][{}]".format(i, j))
+
                 # count the cell's live neighbors
                 live_count = live_neighbors_count(current_gen, i, j)
-                # print("a[{}][{}] = {}".format(i, j, live_count))
+        
                 # a live cell with 2 or 3 live neighbors survives.
                 # a dead cell with less or more than 3 live neighbors remains dead.
                 # Otherwise,
