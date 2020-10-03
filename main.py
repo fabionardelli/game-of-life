@@ -2,6 +2,10 @@ import random
 import curses
 from collections import deque
 
+'''
+initialize the game world creating a matrix of cells
+'''
+
 
 def new_world(h, w):
     # create a list representing the current generation
@@ -83,6 +87,10 @@ def next_generation(current_gen):
         current_gen[next_dead[0]][next_dead[1]] = 0
 
     return current_gen
+
+'''
+main function containing the game loop
+'''
 
 
 def main(stdscr):
