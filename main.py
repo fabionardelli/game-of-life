@@ -7,7 +7,7 @@ def new_world(screen_h, screen_w):
     """
     Initialize the game world creating a matrix of cells.
     Create a list representing the current generation
-    as a 3h*3w matrix and initialize it with random
+    as a h*w matrix and initialize it with random
     values in {0, 1} which stand for the dead/live cells.
     h = terminal window's height
     w = terminal window's width
