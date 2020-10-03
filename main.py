@@ -19,7 +19,7 @@ def new_world(h, w):
     # random initialization
     for i in range(len(generation)):
         for j in range(len(generation[i])):
-            generation[i][j] = random.randint(0, 2)
+            generation[i][j] = random.randint(0, 1)
 
     return generation
 
