@@ -3,16 +3,18 @@ import curses
 from collections import deque
 
 
-def new_world(h, w):
+def new_world(screen_h, screen_w):
     """
     Initialize the game world creating a matrix of cells.
     Create a list representing the current generation
-    as a h*w matrix and initialize it with random
-    values in {0, 1} which stand for the dead/live cells
+    as a 3h*3w matrix and initialize it with random
+    values in {0, 1} which stand for the dead/live cells.
+    h = terminal window's height
+    w = terminal window's width
     """
 
     # fill with 0s
-    generation = [[0 for i in range(w)] for j in range(h)]
+    generation = [[0 for i in range(screen_w)] for j in range(screen_h)]
 
     # random initialization
     for i in range(len(generation)):
@@ -58,7 +60,7 @@ def next_generation(current_gen):
 
                 # count the cell's live neighbors
                 live_count = live_neighbors_count(current_gen, i, j)
-        
+
                 # a live cell with 2 or 3 live neighbors survives.
                 # a dead cell with less or more than 3 live neighbors remains dead.
                 # Otherwise,
@@ -101,7 +103,7 @@ def main(stdscr):
         stdscr.clear()
         game_field = next_generation(game_field)
 
-        # print the game world
+        # print the game world.
         for i in range(h):
             for j in range(w):
                 if game_field[i][j] == 1:
