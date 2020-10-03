@@ -9,12 +9,15 @@ def new_world(screen_h, screen_w):
     Create a list representing the current generation
     as a h*w matrix and initialize it with random
     values in {0, 1} which stand for the dead/live cells.
+    The external rows/cols gets initialized to 0 (like a frame).
     h = terminal window's height
     w = terminal window's width
     """
 
-    # initialize with random values in {0, 1}
-    generation = [[random.randint(0, 1) for _ in range(screen_w)] for _ in range(screen_h)]
+    generation = [[0 if i == 0 or i == screen_w - 1
+                        or j == 0 or j == screen_h - 1
+                   else random.randint(0, 1) for i in range(screen_w)]
+                  for j in range(screen_h)]
 
     return generation
 
