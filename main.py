@@ -100,10 +100,13 @@ def main(stdscr):
         stdscr.clear()
         game_field = next_generation(game_field)
 
-        for i in range(h - 1):
-            for j in range(w - 1):
+        for i in range(h):
+            for j in range(w):
                 if game_field[i][j] == 1:
-                    stdscr.addstr(i, j, '*')
+                    try:
+                        stdscr.addstr(i, j, '*')
+                    except curses.error:
+                        pass
 
         stdscr.refresh()
 
