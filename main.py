@@ -108,8 +108,8 @@ def main(stdscr):
                         pass
 
         # print game info and commands
-        keys_info = 'exit: q'
-        stdscr.addstr(h - 1, w - 8, keys_info)
+        keys_info = 'pause: p  exit: q'
+        stdscr.addstr(h - 1, w - 18, keys_info)
 
         generation_info = 'generation:   {}'.format(generation)
         stdscr.addstr(h - 2, 0, generation_info)
@@ -125,6 +125,14 @@ def main(stdscr):
         if (key == ord('q') or key == ord('Q') or key == 27
                 or key == curses.KEY_ENTER or key in [10, 13]):
             break
+        # pause if the user presses p
+        elif key == ord('p') or key == ord('P'):
+            keys_info = 'press any key to resume'
+            stdscr.addstr(h - 1, w - 24, keys_info)
+            stdscr.nodelay(0)
+            stdscr.getch()
+            stdscr.nodelay(1)
+            stdscr.timeout(150)
         # if window is resized, re-initialize the game field
         # with the new dimensions
         elif key == curses.KEY_RESIZE:
