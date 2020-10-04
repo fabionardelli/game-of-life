@@ -101,12 +101,7 @@ def main(stdscr):
                         stdscr.addstr(i - 1, j - 1, '*')
                     except curses.error:
                         pass
-                elif game_field[i][j] == 0:
-                    try:
-                        stdscr.addstr(i - 1, j - 1, '')
-                    except curses.error:
-                        pass
-                    
+
         # print game info and commands
         try:
             keys_info = 'pause: p  exit: q'
@@ -116,7 +111,7 @@ def main(stdscr):
             stdscr.addstr(h - 1, 0, generation_info)
 
             live_info = 'living cells: {}'.format(live_count)
-            stdscr.addstr(h - 1, w // 3, live_info)
+            stdscr.addstr(h - 2, 0, live_info)
         except curses.error:
             pass
 
