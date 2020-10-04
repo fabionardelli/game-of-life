@@ -45,8 +45,8 @@ def next_generation(current_gen):
     # cells to be dead in the next generation
     dead_queue = deque()
 
-    for i in range(1, len(current_gen) - 1):
-        for j in range(1, len(current_gen[i]) - 1):
+    for i, row in enumerate(game_field[1:-1], start=1):
+        for j, item in enumerate(row[1:-1], start=1):
             # count the cell's live neighbors
             live_count = live_neighbors_count(current_gen, i, j)
 
