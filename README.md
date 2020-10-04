@@ -1,3 +1,4 @@
 # Game of Life  
 
-Terminal version of Conway's Game of Life implemented in Python with curses library 
+Conway's Game of Life implemented in Python 3 with curses library.
+Type `python -m life` to run.
