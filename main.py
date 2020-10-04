@@ -7,15 +7,16 @@ def new_world(screen_h, screen_w):
     """
     Initialize the game world creating a matrix of cells.
     Create a list representing the current generation
-    as a (screen_h+1)*(screen_w+1) matrix and initialize it with random
+    as a (screen_h+2)*(screen_w+2) matrix and initialize it with random
     values in {0, 1} which stand for the dead/live cells.
     The external rows/cols gets initialized to 0 (like a frame).
     Only the screen_h*screen_w submatrix will be printed.
     """
 
-    generation = [[0 if i == 0 or i == screen_w or j == 0 or j == screen_h
-                   else random.randint(0, 1) for i in range(screen_w + 1)]
-                  for j in range(screen_h + 1)]
+    generation = [[0 if i == 0 or i == screen_w + 1 or j == 0 or j == screen_h + 1
+                   else random.randint(0, 1) for i in range(screen_w + 2)]
+                  for j in range(screen_h + 2)]
+
 
     return generation
 
@@ -90,11 +91,11 @@ def main(stdscr):
         game_field = next_generation(game_field)
 
         # print the game world.
-        for i in range(h):
-            for j in range(w):
+        for i in range(1, len(game_field)):
+            for j in range(1, len(game_field[i])):
                 if game_field[i][j] == 1:
                     try:
-                        stdscr.addstr(i, j, '*')
+                        stdscr.addstr(i - 1, j - 1, '*')
                     except curses.error:
                         pass
 
