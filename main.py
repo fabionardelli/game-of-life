@@ -17,7 +17,6 @@ def new_world(screen_h, screen_w):
                    else random.randint(0, 1) for i in range(screen_w + 2)]
                   for j in range(screen_h + 2)]
 
-
     return generation
 
 
