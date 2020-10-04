@@ -84,32 +84,55 @@ def main(stdscr):
     stdscr.timeout(150)
 
     h, w = stdscr.getmaxyx()
-    game_field = new_world(h, w)
+    game_field = new_world(h - 2, w)
+
+    generation = 1  # generation number
 
     while True:
         stdscr.clear()
+        live_count = 0
 
         # print the game world.
         for i, row in enumerate(game_field[1:-1], start=1):
             for j, cell in enumerate(row[1:-1], start=1):
                 if game_field[i][j] == 1:
+                    live_count += 1
                     try:
                         stdscr.addstr(i - 1, j - 1, '*')
                     except curses.error:
                         pass
+                elif game_field[i][j] == 0:
+                    try:
+                        stdscr.addstr(i - 1, j - 1, '')
+                    except curses.error:
+                        pass
+
+        # print game info and commands
+        keys_info = 'exit: q'
+        stdscr.addstr(h - 1, w - 8, keys_info)
+
+        generation_info = 'generation:   {}'.format(generation)
+        stdscr.addstr(h - 2, 0, generation_info)
+
+        live_info = 'living cells: {}'.format(live_count)
+        stdscr.addstr(h - 1, 0, live_info)
 
         stdscr.refresh()
         game_field = next_generation(game_field)
 
-        # exit if the user presses ENTER
+        # exit if the user presses ENTER/ESC/q
         key = stdscr.getch()
-        if key == curses.KEY_ENTER or key in [10, 13]:
+        if (key == ord('q') or key == ord('Q') or key == 27
+                or key == curses.KEY_ENTER or key in [10, 13]):
             break
         # if window is resized, re-initialize the game field
         # with the new dimensions
         elif key == curses.KEY_RESIZE:
             h, w = stdscr.getmaxyx()
-            game_field = new_world(h, w)
+            game_field = new_world(h - 2, w)
+            generation = 0
+
+        generation += 1
 
 
 curses.wrapper(main)
