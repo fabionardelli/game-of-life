@@ -3,19 +3,19 @@ import curses
 from collections import deque
 
 
-def new_world(screen_h, screen_w):
+def new_world(world_h, world_w):
     """
     Initialize the game world creating a matrix of cells.
     Create a list representing the current generation
-    as a (screen_h+2)*(screen_w+2) matrix and initialize it with random
+    as a (world_h+2)*(world_w+2) matrix and initialize it with random
     values in {0, 1} which stand for the dead/live cells.
     The external rows/cols gets initialized to 0 (like a frame).
-    Only the screen_h*screen_w submatrix will be printed.
+    Only the world_h*world_w submatrix will be printed.
     """
 
-    generation = [[0 if i == 0 or i == screen_w + 1 or j == 0 or j == screen_h + 1
-                   else random.randint(0, 1) for i in range(screen_w + 2)]
-                  for j in range(screen_h + 2)]
+    generation = [[0 if i == 0 or i == world_w + 1 or j == 0 or j == world_h + 1
+                   else random.randint(0, 1) for i in range(world_w + 2)]
+                  for j in range(world_h + 2)]
 
     return generation
 
