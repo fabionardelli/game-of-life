@@ -106,16 +106,19 @@ def main(stdscr):
                         stdscr.addstr(i - 1, j - 1, '')
                     except curses.error:
                         pass
-
+                    
         # print game info and commands
-        keys_info = 'pause: p  exit: q'
-        stdscr.addstr(h - 1, w - 18, keys_info)
+        try:
+            keys_info = 'pause: p  exit: q'
+            stdscr.addstr(h - 1, w - 18, keys_info)
 
-        generation_info = 'generation:   {}'.format(generation)
-        stdscr.addstr(h - 2, 0, generation_info)
+            generation_info = 'generation:   {}'.format(generation)
+            stdscr.addstr(h - 1, 0, generation_info)
 
-        live_info = 'living cells: {}'.format(live_count)
-        stdscr.addstr(h - 1, 0, live_info)
+            live_info = 'living cells: {}'.format(live_count)
+            stdscr.addstr(h - 1, w // 3, live_info)
+        except curses.error:
+            pass
 
         stdscr.refresh()
         game_field = next_generation(game_field)
