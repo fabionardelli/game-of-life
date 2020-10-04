@@ -45,27 +45,20 @@ def next_generation(current_gen):
     # cells to be dead in the next generation
     dead_queue = deque()
 
-    for i in range(len(current_gen)):
-        for j in range(len(current_gen[i])):
-            # if a cell has 8 neighbors,
-            # that is to say it is not on the
-            # boundaries of the game's world,
-            # check each of its neighbors
-            if (0 < i < len(current_gen) - 1 and
-                    0 < j < len(current_gen[i]) - 1):
+    for i in range(1, len(current_gen) - 1):
+        for j in range(1, len(current_gen[i]) - 1):
+            # count the cell's live neighbors
+            live_count = live_neighbors_count(current_gen, i, j)
 
-                # count the cell's live neighbors
-                live_count = live_neighbors_count(current_gen, i, j)
-
-                # a live cell with 2 or 3 live neighbors survives.
-                # a dead cell with less or more than 3 live neighbors remains dead.
-                # Otherwise,
-                # a live cell with less than 2 or more than 3 live neighbors dies
-                if current_gen[i][j] == 1 and (live_count < 2 or live_count > 3):
-                    dead_queue.append([i, j])
-                # a dead cell with exactly 3 live neighbors becomes a live cell
-                elif current_gen[i][j] == 0 and live_count == 3:
-                    live_queue.append([i, j])
+            # a live cell with 2 or 3 live neighbors survives.
+            # a dead cell with less or more than 3 live neighbors remains dead.
+            # Otherwise,
+            # a live cell with less than 2 or more than 3 live neighbors dies
+            if current_gen[i][j] == 1 and (live_count < 2 or live_count > 3):
+                dead_queue.append([i, j])
+            # a dead cell with exactly 3 live neighbors becomes a live cell
+            elif current_gen[i][j] == 0 and live_count == 3:
+                live_queue.append([i, j])
 
     # set the live cells in the next generation
     while len(live_queue) > 0:
