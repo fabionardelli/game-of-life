@@ -47,7 +47,7 @@ def next_generation(current_gen):
 
     # loop through the whole matrix except the outer rows/cols
     for i, row in enumerate(current_gen[1:-1], start=1):
-        for j, item in enumerate(row[1:-1], start=1):
+        for j, cell in enumerate(row[1:-1], start=1):
             # count the cell's live neighbors
             live_count = live_neighbors_count(current_gen, i, j)
 
@@ -91,8 +91,8 @@ def main(stdscr):
         game_field = next_generation(game_field)
 
         # print the game world.
-        for i in range(1, len(game_field)):
-            for j in range(1, len(game_field[i])):
+        for i, row in enumerate(game_field[1:-1], start=1):
+            for j, cell in enumerate(row[1:-1], start=1):
                 if game_field[i][j] == 1:
                     try:
                         stdscr.addstr(i - 1, j - 1, '*')
