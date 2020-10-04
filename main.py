@@ -88,7 +88,6 @@ def main(stdscr):
 
     while True:
         stdscr.clear()
-        game_field = next_generation(game_field)
 
         # print the game world.
         for i, row in enumerate(game_field[1:-1], start=1):
@@ -100,6 +99,7 @@ def main(stdscr):
                         pass
 
         stdscr.refresh()
+        game_field = next_generation(game_field)
 
         # exit if the user presses ENTER
         key = stdscr.getch()
