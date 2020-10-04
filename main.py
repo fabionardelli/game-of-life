@@ -45,6 +45,7 @@ def next_generation(current_gen):
     # cells to be dead in the next generation
     dead_queue = deque()
 
+    # loop through the whole matrix except the outer rows/cols
     for i, row in enumerate(current_gen[1:-1], start=1):
         for j, item in enumerate(row[1:-1], start=1):
             # count the cell's live neighbors
