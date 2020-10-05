@@ -21,7 +21,8 @@ def new_world(world_h, world_w):
 
 def live_neighbors_count(current_gen, row_idx, col_idx):
     """
-    Count the live neighbors of the cell indexed by row_idx, col_idx
+    Count the live neighbors of the cell indexed by row_idx, col_idx.
+    Handle the matrix as a toroidal array.
     """
 
     count = 0
@@ -60,7 +61,6 @@ def next_generation(current_gen):
     # cells to be dead in the next generation
     dead_queue = deque()
 
-    # loop through the whole matrix except the outer rows/cols
     for i, row in enumerate(current_gen):
         for j, cell in enumerate(row):
             # count the cell's live neighbors
