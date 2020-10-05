@@ -5,12 +5,9 @@ from collections import deque
 
 def new_world(world_h, world_w):
     """
-    Initialize the game world creating a matrix of cells.
-    Create a list representing the current generation
-    as a (world_h+2)*(world_w+2) matrix and initialize it with random
+    Initialize the game world. Create a world_h * world_w matrix
+    representing the first generation of cells and initialize it with random
     values in {0, 1} which stand for the dead/live cells.
-    The external rows/cols gets initialized to 0 (like a frame).
-    Only the world_h*world_w submatrix will be printed.
     """
 
     generation = [[random.randint(0, 1) for i in range(world_w)]
@@ -22,7 +19,7 @@ def new_world(world_h, world_w):
 def live_neighbors_count(current_gen, row_idx, col_idx):
     """
     Count the live neighbors of the cell indexed by row_idx, col_idx.
-    Handle the matrix as a toroidal array.
+    Handle the matrix as a wrap-around array.
     """
 
     count = 0
@@ -54,7 +51,7 @@ def live_neighbors_count(current_gen, row_idx, col_idx):
 
 def next_generation(current_gen):
     """
-    Implement Conway's Game of Life. Take a list of cells in input
+    Implement Conway's Game of Life. Take as input a matrix (list of lists)
     which represents a generation of cells and compute the next one.
     """
 
