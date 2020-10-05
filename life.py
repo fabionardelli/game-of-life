@@ -13,9 +13,8 @@ def new_world(world_h, world_w):
     Only the world_h*world_w submatrix will be printed.
     """
 
-    generation = [[0 if i == 0 or i == world_w + 1 or j == 0 or j == world_h + 1
-                   else random.randint(0, 1) for i in range(world_w + 2)]
-                  for j in range(world_h + 2)]
+    generation = [[random.randint(0, 1) for i in range(world_w)]
+                  for j in range(world_h)]
 
     return generation
 
@@ -26,11 +25,27 @@ def live_neighbors_count(current_gen, row_idx, col_idx):
     """
 
     count = 0
-    for i in range(row_idx - 1, row_idx + 2):
-        for j in range(col_idx - 1, col_idx + 2):
-            if (current_gen[i][j] == 1 and
-                    (i != row_idx or j != col_idx)):
-                count += 1
+
+    rows = len(current_gen)
+    cols = len(current_gen[0])
+
+    if current_gen[(row_idx - 1) % rows][(col_idx - 1) % cols] == 1:
+        count += 1
+    if current_gen[(row_idx - 1) % rows][col_idx % cols] == 1:
+        count += 1
+    if current_gen[(row_idx - 1) % rows][(col_idx + 1) % cols] == 1:
+        count += 1
+    if current_gen[row_idx % rows][(col_idx - 1) % cols] == 1:
+        count += 1
+    if current_gen[row_idx % rows][(col_idx + 1) % cols] == 1:
+        count += 1
+    if current_gen[(row_idx + 1) % rows][(col_idx - 1) % cols] == 1:
+        count += 1
+    if current_gen[(row_idx + 1) % rows][col_idx % cols] == 1:
+        count += 1
+    if current_gen[(row_idx + 1) % rows][(col_idx + 1) % cols] == 1:
+        count += 1
+
     return count
 
 
@@ -46,8 +61,8 @@ def next_generation(current_gen):
     dead_queue = deque()
 
     # loop through the whole matrix except the outer rows/cols
-    for i, row in enumerate(current_gen[1:-1], start=1):
-        for j, cell in enumerate(row[1:-1], start=1):
+    for i, row in enumerate(current_gen):
+        for j, cell in enumerate(row):
             # count the cell's live neighbors
             live_count = live_neighbors_count(current_gen, i, j)
 
@@ -93,12 +108,12 @@ def main(stdscr):
         live_count = 0
 
         # print the game world.
-        for i, row in enumerate(game_field[1:-1], start=1):
-            for j, cell in enumerate(row[1:-1], start=1):
+        for i, row in enumerate(game_field):
+            for j, cell in enumerate(row):
                 if game_field[i][j] == 1:
                     live_count += 1
                     try:
-                        stdscr.addstr(i - 1, j - 1, '*')
+                        stdscr.addstr(i, j, '*')
                     except curses.error:
                         pass
 
