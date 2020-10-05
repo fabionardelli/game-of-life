@@ -36,10 +36,12 @@ def live_neighbors_count(current_gen, row_idx, col_idx):
         count += 1
     if current_gen[(row_idx - 1) % rows][(col_idx + 1) % cols] == 1:
         count += 1
+
     if current_gen[row_idx % rows][(col_idx - 1) % cols] == 1:
         count += 1
     if current_gen[row_idx % rows][(col_idx + 1) % cols] == 1:
         count += 1
+        
     if current_gen[(row_idx + 1) % rows][(col_idx - 1) % cols] == 1:
         count += 1
     if current_gen[(row_idx + 1) % rows][col_idx % cols] == 1:
