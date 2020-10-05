@@ -1,3 +1,6 @@
+# Conway's Game of Life
+# Author: Fabio Nardelli
+
 import random
 import curses
 from collections import deque
