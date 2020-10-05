@@ -115,7 +115,7 @@ def main(stdscr):
                 if game_field[i][j] == 1:
                     live_count += 1
                     try:
-                        stdscr.addstr(i, j, '*')
+                        stdscr.addch(i, j, '*')
                     except curses.error:
                         pass
 
