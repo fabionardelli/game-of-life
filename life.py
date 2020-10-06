@@ -95,7 +95,7 @@ def main(stdscr):
 
     curses.curs_set(0)
     stdscr.nodelay(1)
-    stdscr.timeout(400)
+    stdscr.timeout(500)
 
     h, w = stdscr.getmaxyx()
     game_field = new_world(h - 2, w)
