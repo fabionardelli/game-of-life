@@ -13,8 +13,8 @@ def new_world(world_h, world_w):
     values in {0, 1} which stand for the dead/live cells.
     """
 
-    generation = [[random.randint(0, 1) for i in range(world_w)]
-                  for j in range(world_h)]
+    generation = [[random.randint(0, 1) for _ in range(world_w)]
+                  for _ in range(world_h)]
 
     return generation
 
@@ -41,7 +41,7 @@ def live_neighbors_count(current_gen, row_idx, col_idx):
         count += 1
     if current_gen[row_idx % rows][(col_idx + 1) % cols] == 1:
         count += 1
-        
+
     if current_gen[(row_idx + 1) % rows][(col_idx - 1) % cols] == 1:
         count += 1
     if current_gen[(row_idx + 1) % rows][col_idx % cols] == 1:
@@ -58,37 +58,26 @@ def next_generation(current_gen):
     which represents a generation of cells and compute the next one.
     """
 
-    # cells to be live in the next generation
-    live_queue = deque()
-    # cells to be dead in the next generation
-    dead_queue = deque()
+    # matrix representing the next generation of cells
+    next_gen = [[0 for _ in range(len(current_gen[0]))]
+                for _ in range(len(current_gen))]
 
     for i, row in enumerate(current_gen):
         for j, cell in enumerate(row):
             # count the cell's live neighbors
             live_count = live_neighbors_count(current_gen, i, j)
 
-            # a live cell with 2 or 3 live neighbors survives.
-            # a dead cell with less or more than 3 live neighbors remains dead.
-            # Otherwise,
             # a live cell with less than 2 or more than 3 live neighbors dies
             if current_gen[i][j] == 1 and (live_count < 2 or live_count > 3):
-                dead_queue.append([i, j])
+                next_gen[i][j] = 0
             # a dead cell with exactly 3 live neighbors becomes a live cell
             elif current_gen[i][j] == 0 and live_count == 3:
-                live_queue.append([i, j])
+                next_gen[i][j] = 1
+            # the other cells remain the same
+            else:
+                next_gen[i][j] = current_gen[i][j]
 
-    # set the live cells in the next generation
-    while len(live_queue) > 0:
-        next_live = live_queue.popleft()
-        current_gen[next_live[0]][next_live[1]] = 1
-
-    # set the dead cells in the next generation
-    while len(dead_queue) > 0:
-        next_dead = dead_queue.popleft()
-        current_gen[next_dead[0]][next_dead[1]] = 0
-
-    return current_gen
+    return next_gen
 
 
 def main(stdscr):
