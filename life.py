@@ -58,26 +58,34 @@ def next_generation(current_gen):
     which represents a generation of cells and compute the next one.
     """
 
-    # matrix representing the next generation of cells
-    next_gen = [[0 for _ in range(len(current_gen[0]))]
-                for _ in range(len(current_gen))]
+    # cells to be live in the next generation
+    live_list = []
+    # cells to be dead in the next generation
+    dead_list = []
 
     for i, row in enumerate(current_gen):
-        for j, cell in enumerate(row):
-            # count the cell's live neighbors
+        for j, item in enumerate(row):
             live_count = live_neighbors_count(current_gen, i, j)
-
+            # print("a[{}][{}] = {}".format(i, j, live_count))
+            # a live cell with 2 or 3 live neighbors survives.
+            # a dead cell with less or more than 3 live neighbors remains dead.
+            # Otherwise,
             # a live cell with less than 2 or more than 3 live neighbors dies
             if current_gen[i][j] == 1 and (live_count < 2 or live_count > 3):
-                next_gen[i][j] = 0
+                dead_list.append([i, j])
             # a dead cell with exactly 3 live neighbors becomes a live cell
             elif current_gen[i][j] == 0 and live_count == 3:
-                next_gen[i][j] = 1
-            # the other cells remain the same
-            else:
-                next_gen[i][j] = current_gen[i][j]
+                live_list.append([i, j])
 
-    return next_gen
+    # set the live cells in the next generation
+    for cell in live_list:
+        current_gen[cell[0]][cell[1]] = 1
+
+    # set the dead cells in the next generation
+    for cell in dead_list:
+        current_gen[cell[0]][cell[1]] = 0
+
+    return current_gen
 
 
 def main(stdscr):
